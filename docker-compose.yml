@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: .
+    command: python main.py
+
