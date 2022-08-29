@@ -8,44 +8,29 @@ class BaseModel(Model):
         database = db
 
 
-class User(BaseModel):
-    level = IntegerField(default=0)
-    state = IntegerField(default=0)
-    user_id = IntegerField(null=False)
-
-
 class Section(BaseModel):
     name = CharField(null=False)
+    picture = CharField(null=True)
 
 
 class Product(BaseModel):
     name = CharField(max_length=250, null=False)
     description = CharField(null=False)
+    picture = CharField(null=True)
     section = ForeignKeyField(Section, backref='products')
-
-
-def get_state(user_id):
-    try:
-        user = User.get(User.user_id == user_id)
-    except DoesNotExist:
-        user = User.create(user_id=user_id, level=0, state=0)
-
-    return {
-        'level': user.level,
-        'state': user.state,
-    }
-
-
-def set_state(user_id, state):
-    user = User.get(User.user_id == user_id)
-    user.level = state['level']
-    user.state = state['state']
-    user.save()
 
 
 def get_sections():
     return Section.select()
 
 
-def get_products(section_id):
-    return Product.select().where(Product.section == section_id)
+def get_all_products():
+    return Product.select()
+
+
+def get_products(section_name):
+    return Product.select().where(Product.section == Section.get(Section.name == section_name))
+
+
+def get_product(product_name):
+    return Product.get(Product.name == product_name)
