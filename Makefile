@@ -1,5 +1,11 @@
+prepare:
+	@poetry export -f requirements.txt --output requirements.txt
+
 container:
-	poetry export -f requirements.txt --output requirements.txt
-	poetry run docker build -t vk_chat_bot .
+	docker build -t vk_chat_bot .
 run:
-	poetry run docker run vk_chat_bot
+	docker run vk_chat_bot
+
+
+
+.PHONY: install run container prepare
