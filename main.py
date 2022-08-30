@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-chat_token = os.getenv('TOKEN')
+chat_token = os.getenv("TOKEN")
 bot = Bot(chat_token)
 db.connect()
 
@@ -26,7 +26,7 @@ class SectionRule(ABCRule):
 class StartRule(ABCRule):
     async def check(self, event: Message):
         text = event.text.split()[-1]
-        return text in ['Старт', 'Разделы']
+        return text in ["Старт", "Разделы"]
 
 
 class ProductRule(ABCRule):

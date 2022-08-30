@@ -1,6 +1,6 @@
 from peewee import *
 
-db = SqliteDatabase('vk_bot_db.db')
+db = SqliteDatabase("vk_bot_db.db")
 
 
 class BaseModel(Model):
@@ -17,7 +17,7 @@ class Product(BaseModel):
     name = CharField(max_length=250, null=False)
     description = CharField(null=False)
     picture = CharField(null=True)
-    section = ForeignKeyField(Section, backref='products')
+    section = ForeignKeyField(Section, backref="products")
 
 
 def get_sections():
@@ -29,7 +29,9 @@ def get_all_products():
 
 
 def get_products(section_name):
-    return Product.select().where(Product.section == Section.get(Section.name == section_name))
+    return Product.select().where(
+        Product.section == Section.get(Section.name == section_name)
+    )
 
 
 def get_product(product_name):
